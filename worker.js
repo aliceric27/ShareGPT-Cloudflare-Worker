@@ -358,7 +358,11 @@ function sanitizeHtmlContent(html) {
     // Remove event handlers and javascript: URIs
     .replace(/\s+on\w+="[^"]*"/gi, '')
     .replace(/\s+on\w+='[^']*'/gi, '')
-    .replace(/javascript:/gi, '');
+    .replace(/javascript:/gi, '')
+    // ==== 新增：移除 code 區塊常見的 max-height:400px 樣式 ====
+    .replace(/max-height\s*:\s*400px;?/gi, '')
+    // 如 style 屬性已被清空則一併移除
+    .replace(/\sstyle=["']\s*[;]?\s*["']/gi, '');
 }
 
 /**
@@ -738,7 +742,6 @@ function generateConversationHtml(conversationData) {
             padding: 16px;
             margin: 16px 0;
             overflow-x: auto;
-            max-height: 400px;
         }
         
         .content code {
@@ -1122,7 +1125,6 @@ function getUploadForm() {
         .hljs-link { color: #96d0ff; font-style: underline; }
             /* 額外：讓 <pre> 區塊拉滿寬、橫向捲動時隱藏底部捲軸 */
     pre {
-      max-height: 400px;
       margin: 1rem 0;
       overflow: auto;
       margin: 1rem 0;            /* Firefox */
