@@ -1,0 +1,21 @@
+name = "share-gpt-worker"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# KV Namespace bindings
+[[kv_namespaces]]
+binding = "sharegpt"
+id = "your-kv-namespace-id"
+preview_id = "your-preview-kv-namespace-id"
+
+# Environment variables (optional)
+[vars]
+ENVIRONMENT = "production"
+
+# Development configuration
+[env.dev]
+name = "share-gpt-worker-dev"
+
+[env.dev.vars]
+ENVIRONMENT = "development"

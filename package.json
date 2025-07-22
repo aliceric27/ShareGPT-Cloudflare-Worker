@@ -1,0 +1,25 @@
+{
+  "name": "share-gpt-worker",
+  "version": "1.0.0",
+  "description": "A ShareGPT-like service for sharing chat conversations using Cloudflare Workers",
+  "main": "worker.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "wrangler dev --local",
+    "create-kv": "wrangler kv:namespace create \"sharegpt\"",
+    "create-kv-preview": "wrangler kv:namespace create \"sharegpt\" --preview"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "chatgpt",
+    "sharing",
+    "conversations"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
