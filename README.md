@@ -5,11 +5,12 @@
 [![Highlight.js](https://img.shields.io/badge/Highlight.js-11.8.0-brightgreen)](https://highlightjs.org/)
 
 
-![demo](./image.png)
-
 # ShareGPT Cloudflare Worker
 
 一個在 Cloudflare Workers 上運行、類似 ShareGPT 的對話分享服務。
+
+
+![demo](./image.png)
 
 ## ✨ 特色
 
