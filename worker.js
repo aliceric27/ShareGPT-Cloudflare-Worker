@@ -76,16 +76,29 @@ async function handlePost(request, env, corsHeaders) {
   const clientIP = request.headers.get('CF-Connecting-IP') || 'unknown';
   await checkRateLimit(env, clientIP);
 
-  // Get request body
-  const contentType = request.headers.get('Content-Type') || '';
-  let htmlContent;
-
-  if (contentType.includes('application/json')) {
-    const body = await request.json();
-    htmlContent = body.html || body.content;
-  } else {
-    htmlContent = await request.text();
-  }
+    // Get request body
+    const contentType = request.headers.get('Content-Type') || '';
+    let htmlContent;
+  
+    if (contentType.includes('application/json')) {
+      // ===== 新增：包住 JSON 解析，避免壞 JSON 直接 throw =====
+      let body;
+      try {
+        body = await request.json();
+      } catch (e) {
+        return new Response('Bad JSON', { status: 400, headers: corsHeaders });
+      }
+  
+      // ===== 新增：支援 items 陣列 =====
+      if (Array.isArray(body.items)) {
+        // 直接序列化，以沿用既有 isValidConversationJSON / parseJSONConversation
+        htmlContent = JSON.stringify(body.items);
+      } else {
+        htmlContent = body.html || body.content;
+      }
+    } else {
+      htmlContent = await request.text();
+    }
 
   // Preprocess content to remove multipart artifacts and clean formatting
   htmlContent = preprocessContent(htmlContent);
